@@ -1,0 +1,19 @@
+{
+  "name": "async-race",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alex99like/async-race.git"
+  },
+  "author": "Aleksievich Aleksander",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alex99like/async-race/issues"
+  },
+  "homepage": "https://github.com/Alex99like/async-race#readme"
+}
