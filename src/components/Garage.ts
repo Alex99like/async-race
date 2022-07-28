@@ -1,3 +1,4 @@
+import createListCar from './createListCar';
 import {
   createBtnContainer, createCar, inputsContainer, updateCar,
 } from './inputContainer';
@@ -5,14 +6,16 @@ import {
 const createGarage = async () => {
   const body = document.querySelector('body');
 
-  const [garageContainer] = [document.createElement('div')];
+  const [garageContainer, list] = [document.createElement('div'), document.createElement('div')];
+  list.classList.add('list-car');
   garageContainer.classList.add('garage-container');
-  const create = createCar();
   const update = updateCar();
+  const create = createCar();
   const btn = createBtnContainer();
   const container = inputsContainer(create.createInputs, update.createInputs, btn.btnContainer);
-  garageContainer.append(container);
+  garageContainer.append(container, list);
   body?.append(garageContainer);
+  await createListCar();
 };
 
 export default createGarage;

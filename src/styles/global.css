@@ -8,8 +8,20 @@
 }
 
 body {
-  height: 100vh;
   padding: 20px 0;
+  overflow-x: hidden;
   background: #BF53E8;
   background: linear-gradient(to bottom right, #BF53E8, #38015A);
+}
+
+body::-webkit-scrollbar {
+  width: 12px;               /* ширина scrollbar */
+}
+body::-webkit-scrollbar-track {
+  background: #38015A;        /* цвет дорожки */
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #530174;    /* цвет плашки */
+  border-radius: 10px;       /* закругления плашки */
+  border: 3px solid #38015A;  /* padding вокруг плашки */
 }

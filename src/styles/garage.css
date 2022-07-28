@@ -126,3 +126,105 @@
 .btn-container .generator-cars:hover {
   box-shadow: 0 0 3px darkorchid;
 }
+
+.garage-container .list-car {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 7px;
+  background: linear-gradient(to bottom right, #BF53E8, #38015A);
+  box-shadow: 0 0 2px rgb(50, 0, 107);
+}
+
+.garage-container .container-car {
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px
+}
+
+.garage-container .container-car .button-fn {
+  display: flex;
+  column-gap: 10px;
+}
+
+.garage-container .container-car .button-fn button {
+  width: 70px;
+  box-shadow: 0 0 4px darkorchid;
+  font-weight: 700;
+  color: rgb(137, 1, 161);
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.garage-container .container-car .button-fn h3 {
+  margin-left: 10px;
+  border-left: 5px solid #6b0160;
+  padding-left: 10px;
+}
+
+.garage-container .container-car .button-fn button:hover {
+  transform: scale(1.1);
+  background: rgb(137, 1, 161);
+  color: #fff;
+}
+
+.garage-container .container-car svg {
+  width: 50px;
+  height: 26px;
+}
+
+.garage-container .container-car .line-car {
+  border-bottom: 3px dashed gray;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: 90%;
+  margin-left: 10px;
+  justify-content: space-between;
+}
+
+.garage-container .container-car .line-car .finish {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 14%;
+}
+
+.garage-container .container-car .line {
+  margin-top: 10px;
+  display: flex;
+  column-gap: 10px;
+  height: 30px;
+}
+
+.garage-container .container-car .line button {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.garage-container .container-car .line button:hover {
+  transform: scale(1.2);
+}
+
+.garage-container .container-car .line button:disabled {
+  transform: scale(0.9);
+  background-color: gray;
+}
+
+.garage-container .container-car .line .start {
+  background-color: green;
+}
+
+.garage-container .container-car .line .stop {
+  background-color: red;
+}

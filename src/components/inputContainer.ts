@@ -1,3 +1,11 @@
+import createBtnCar from './createBtn';
+
+interface IInput {
+  createInputs: HTMLDivElement;
+  inputName: HTMLInputElement;
+  inputColor: HTMLInputElement;
+}
+
 const createCar = () => {
   const [createInputs, inputName, inputColor, btnCreate] = [document.createElement('div'), document.createElement('input'), document.createElement('input'), document.createElement('button')];
   createInputs.append(inputName, inputColor, btnCreate);
@@ -5,6 +13,7 @@ const createCar = () => {
   inputName.type = 'text';
   inputColor.type = 'color';
   btnCreate.textContent = 'CREATE';
+  btnCreate.addEventListener('click', () => createBtnCar(inputName, inputColor));
   return { createInputs, inputName, inputColor };
 };
 
@@ -41,5 +50,5 @@ const inputsContainer = (create: HTMLDivElement, update: HTMLDivElement, btn: HT
 };
 
 export {
-  inputsContainer, createCar, updateCar, createBtnContainer,
+  inputsContainer, createCar, updateCar, createBtnContainer, IInput,
 };

@@ -22,7 +22,7 @@ const deleteCar = async (id: number) => {
   }
 };
 
-const createCar = async (car: ICar) => {
+const createCarApi = async (car: ICar) => {
   await fetch(`${baseUrl}/garage`, {
     method: 'POST',
     headers: {
@@ -57,5 +57,5 @@ const checkDrive = async (id: number): Promise<Response> => {
 };
 
 export {
-  getCar, deleteCar, getAllCars, createCar, updateCar, startEngine, ICar, checkDrive,
+  getCar, deleteCar, getAllCars, createCarApi, updateCar, startEngine, ICar, checkDrive,
 };
