@@ -1,0 +1,128 @@
+.garage-container {
+  width: 97vw;
+  margin: 0 auto;
+}
+
+.inputs-container {
+  background: rgba(255, 255, 255, 0.606);
+  width: 450px;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.inputs-container .input-section {
+  display: flex;
+  justify-content: space-between;
+  height: 45px;
+  align-items: center;
+  width: 400px;
+}
+
+.input-section input[type="text"] {
+  border-radius: 3px;
+  border: none;
+  font-size: 16px;
+  padding: 2px 7px;
+  outline: none;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.969);
+  color: gray;
+  transition: .2s;
+}
+
+.input-section input[type="text"]:focus {
+  box-shadow: 0 0 5px darkorchid;
+  transform: scale(1.1);
+}
+
+.input-section input[type="color"] {
+  width: 50px;
+  border: none;
+  border-radius: 4px;
+  padding: 1px 3px;
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: .1s;
+}
+
+.input-section input[type="color"]:focus {
+  transform: scale(1.1);
+}
+
+.input-section input[type="color"]:hover {
+  transform: scale(1.1);
+}
+
+.input-section input[type="text"]:hover {
+  transform: scale(1.1);
+}
+
+.input-section button {
+  padding: 3px;
+  border: none;
+  border-radius: 4px;
+  z-index: 100;
+  width: 80px;
+  height: 32px;
+  font-weight: 700;
+  color: darkmagenta;
+  background: #fff;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.input-section button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 3px darkorchid;
+  background: darkorchid;
+  color: #fff;
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.btn-container button {
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 17px;
+  color: #fff;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.btn-container button:hover {
+  transform: scale(1.1) translateY(-5px);
+}
+
+.btn-container .race {
+  width: 100px;
+  height: 35px;
+  background: green;
+}
+
+.btn-container .race:hover {
+  box-shadow: 0 0 3px green;
+}
+
+.btn-container .reset {
+  width: 100px;
+  background: red;
+}
+
+.btn-container .reset:hover {
+  box-shadow: 0 0 3px red;
+}
+
+.btn-container .generator-cars {
+  width: 180px;
+  background: darkorchid;
+}
+
+.btn-container .generator-cars:hover {
+  box-shadow: 0 0 3px darkorchid;
+}
