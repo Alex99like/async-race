@@ -9,7 +9,7 @@ const progress = async (el: HTMLElement, stop: HTMLButtonElement) => {
     const drive = checkDrive(+car.dataset.id);
     stopBtn.disabled = false;
     requestAnimationFrame(async function animate() {
-      const state = parseFloat(el.style.marginLeft) + 0.2;
+      const state = parseFloat(el.style.marginLeft) + 0.25;
       car.style.marginLeft = `${state}%`;
       if (state < 85 && bool && car.dataset.value) {
         setTimeout(() => requestAnimationFrame(animate), res.velocity / 10);

@@ -10,12 +10,12 @@ const createGarage = async () => {
   list.classList.add('list-car');
   garageContainer.classList.add('garage-container');
   const update = updateCar();
-  const create = createCar();
+  const create = createCar(update);
   const btn = createBtnContainer();
   const container = inputsContainer(create.createInputs, update.createInputs, btn.btnContainer);
   garageContainer.append(container, list);
   body?.append(garageContainer);
-  await createListCar();
+  await createListCar(update);
 };
 
 export default createGarage;

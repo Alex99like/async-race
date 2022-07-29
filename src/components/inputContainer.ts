@@ -1,19 +1,21 @@
 import createBtnCar from './createBtn';
+import { updateHandler } from './updateBtn';
 
 interface IInput {
-  createInputs: HTMLDivElement;
+  createInputs?: HTMLDivElement;
   inputName: HTMLInputElement;
+  btnCreate: HTMLButtonElement;
   inputColor: HTMLInputElement;
 }
 
-const createCar = () => {
+const createCar = (input: IInput) => {
   const [createInputs, inputName, inputColor, btnCreate] = [document.createElement('div'), document.createElement('input'), document.createElement('input'), document.createElement('button')];
   createInputs.append(inputName, inputColor, btnCreate);
   createInputs.className = 'input-section';
   inputName.type = 'text';
   inputColor.type = 'color';
   btnCreate.textContent = 'CREATE';
-  btnCreate.addEventListener('click', () => createBtnCar(inputName, inputColor));
+  btnCreate.addEventListener('click', () => createBtnCar(inputName, inputColor, input));
   return { createInputs, inputName, inputColor };
 };
 
@@ -22,9 +24,15 @@ const updateCar = () => {
   createInputs.append(inputName, inputColor, btnCreate);
   createInputs.className = 'input-section';
   inputName.type = 'text';
+  inputName.disabled = true;
   inputColor.type = 'color';
+  inputColor.disabled = true;
   btnCreate.textContent = 'UPDATE';
-  return { createInputs, inputName, inputColor };
+  btnCreate.disabled = true;
+  btnCreate.addEventListener('click', () => updateHandler(inputName, inputColor, btnCreate));
+  return {
+    createInputs, inputName, inputColor, btnCreate,
+  };
 };
 
 const createBtnContainer = () => {
