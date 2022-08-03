@@ -1,0 +1,139 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  width: 465px;
+  box-shadow: 1px 1px 3px dimgray;
+  border-radius: 3px;
+  padding: 10px 15px 10px;
+  row-gap: 13px;
+}
+
+.panel .input-container {
+  width: 435px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.panel .input-container input[type="text"] {
+  border: none;
+  outline: none;
+  box-shadow: 0 0 3px dimgray;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 3px 10px;
+  color: dimgray;
+  width: 260px;
+  transition: .1s;
+}
+
+.panel .input-container input[type="color"] {
+  padding: 1px 3px;
+  border: none;
+  border-radius: 3px;
+  width: 50px;
+  height: 30px;
+  cursor: pointer;
+  background-color: #fff;
+  box-shadow: 0 0 3px dimgray;
+  transition: .1s;
+}
+
+.panel .input-container button {
+  border: none;
+  padding: 3px 15px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 0 3px crimson;
+  background: #fff;
+  color: crimson;
+  transition: .1s;
+}
+
+.panel .input-container input:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 2px 5px gray;
+}
+
+.panel .input-container input:focus {
+  transform: scale(1.1);
+}
+
+.panel .input-container button:hover {
+  transform: scale(1.1);
+  background-color: crimson;
+  color: #fff;
+}
+
+.panel .input-container button:disabled,
+.panel .input-container input[type="color"]:disabled,
+.panel .input-container input[type="text"]:disabled {
+  background-color: dimgray;
+  box-shadow: 0 0 0;
+  color: #fff;
+  transform: scale(1);
+  cursor: no-drop;
+}
+
+.panel .panel-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.panel .panel-buttons button {
+  border: none;
+  padding: 5px 25px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+  transition: .1s;
+}
+
+.panel .panel-buttons button:hover {
+  transform: scale(1.1);
+}
+
+.panel .panel-buttons .race:hover {
+  background-color: rgb(3, 141, 3);
+  color: #fff;
+}
+
+.panel .panel-buttons .reset:hover {
+  background-color: rgb(220, 6, 49);
+  color: #fff;
+}
+
+.panel .panel-buttons .generator-cars:hover {
+  background-color: rgb(4, 143, 190);
+  color: #fff;
+}
+
+.panel .panel-buttons .race {
+  box-shadow: 0 0 4px rgb(3, 141, 3);
+  color: rgb(3, 141, 3);
+}
+
+.panel .panel-buttons .reset {
+  box-shadow: 0 0 4px rgb(220, 6, 49);
+  color: rgb(220, 6, 49);
+}
+
+.panel .panel-buttons .generator-cars {
+  width: 210px;
+  box-shadow: 0 0 4px rgb(4, 143, 190);
+  color: rgb(4, 143, 190);
+}
+
+.panel .panel-buttons button:disabled {
+  background-color: dimgray !important;
+  box-shadow: 0 0 0;
+  color: #fff;
+  transform: scale(1);
+  cursor: no-drop;
+}

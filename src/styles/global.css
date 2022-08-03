@@ -7,14 +7,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-body {
-  padding: 20px 0;
-  min-height: 100vh;
-  overflow-x: hidden;
-  background: #BF53E8;
-  background: linear-gradient(to bottom right, #BF53E8, #38015A);
-}
-
 body::-webkit-scrollbar {
   width: 12px;               /* ширина scrollbar */
 }
@@ -25,4 +17,45 @@ body::-webkit-scrollbar-thumb {
   background-color: #530174;    /* цвет плашки */
   border-radius: 10px;       /* закругления плашки */
   border: 3px solid #38015A;  /* padding вокруг плашки */
+}
+
+.container-function-btn {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 7px;
+  width: 225px;
+}
+
+.container-function-btn button {
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  padding: 7px 20px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 1px 1px 3px dimgray;
+  transition: .1s;
+  cursor: pointer;
+}
+
+.container-function-btn button:hover {
+  color: #fff;
+  background-color: crimson;
+  transform: translate(1px, 2px);
+}
+
+.container-function-btn button.active {
+  color: #fff;
+  background-color: crimson;
+  transform: translate(1px, 2px);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 1px black;
+  padding: 10px;
+  width: 97vw;
+  margin: 20px auto 10px;
+  border-radius: 4px;
 }

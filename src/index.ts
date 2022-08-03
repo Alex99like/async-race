@@ -1,5 +1,4 @@
-import createGarage from './components/Garage';
-import './styles/garage.css';
-import './styles/global.css';
+import App from './components/app';
 
-createGarage();
+const app = new App();
+app.render();
