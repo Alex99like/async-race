@@ -5,6 +5,7 @@ import ControlPanel from './ControlPanel';
 import DataGarage from './DataGarage';
 import NextPrev from './NextPrev';
 import { Car } from '../car/Car';
+import ModalWinner from './ModalWinner';
 
 class Garage {
   private garage: HTMLDivElement;
@@ -23,6 +24,8 @@ class Garage {
 
   count: number;
 
+  modalWinner: ModalWinner;
+
   constructor() {
     this.arrElement = [];
     this.garage = document.createElement('div');
@@ -31,19 +34,31 @@ class Garage {
     this.count = 0;
     this.garage.className = 'garage';
     this.list.className = 'list-garage';
-    this.controlPanel = new ControlPanel(this.renderList.bind(this));
+    this.controlPanel = new ControlPanel(this.renderList.bind(this), this.garageView.bind(this));
     this.data = new DataGarage();
     this.pnBtn = new NextPrev();
     this.renderList();
+    this.modalWinner = new ModalWinner();
   }
 
   async checkRaceReset() {
-    const map = this.arrElement.filter((el) => el.state.stateCar === 'started');
-    if (map.length > 0) this.controlPanel.allInputs.buttons.reset.enabled();
-    else this.controlPanel.allInputs.buttons.reset.disabled();
+    if (!this.modalWinner.state.race) {
+      const map = this.arrElement.filter((el) => el.state.stateCar === 'started');
+      if (map.length > 0) this.controlPanel.allInputs.buttons.reset.enabled();
+      else {
+        this.controlPanel.allInputs.buttons.reset.disabled();
+        this.controlPanel.allInputs.buttons.race.enabled();
+      }
+      this.checkCarsCount();
+    } else {
+      this.controlPanel.allInputs.buttons.reset.disabled();
+      this.controlPanel.allInputs.buttons.race.disabled();
+      this.pnBtn.getElement.prev.disabled();
+      this.pnBtn.getElement.next.disabled();
+    }
   }
 
-  async dataGarageView() {
+  async garageView() {
     const res = await getCars(this.page);
     if (res.count) {
       this.data.updateState(this.page, +res.count);
@@ -52,7 +67,7 @@ class Garage {
   }
 
   async renderList(id?: number) {
-    this.dataGarageView();
+    this.garageView();
     const res = await getCars(this.page);
     const allId = this.arrElement.map((el) => el.id);
     if (id) this.arrElement = this.arrElement.filter((item) => item.id !== id);
@@ -65,6 +80,7 @@ class Garage {
               this.controlPanel.allInputs.update,
               this.renderList.bind(this),
               this.checkRaceReset.bind(this),
+              this.modalWinner,
             ),
           );
         }
@@ -98,18 +114,19 @@ class Garage {
     else this.pnBtn.getElement.next.enabled();
   }
 
-  raceStart() {
-    this.arrElement.forEach((el) => {
-      if (el.state.stateCar === 'stopped' && !el.state.bool) {
-        el.startCar();
-      }
+  async raceStart() {
+    this.modalWinner.setState = true;
+    this.arrElement.forEach(async (el) => {
+      if (el.state.stateCar === 'started') await el.stopCar();
+      await el.startCar();
     });
   }
 
-  resetEvent() {
-    this.arrElement.forEach((el) => {
+  async resetEvent() {
+    this.arrElement.forEach(async (el) => {
       if (el.state.stateCar === 'started') {
-        el.stopCar();
+        await el.stopCar();
+        this.resetEvent();
       }
     });
   }
@@ -123,8 +140,9 @@ class Garage {
 
   render() {
     this.addActiveBtn();
-    this.dataGarageView();
+    this.garageView();
     this.garage.append(
+      this.modalWinner.render(),
       this.controlPanel.render(),
       this.data.render(),
       this.list,

@@ -17,7 +17,9 @@ class ControlPanel {
 
   private renderList: IRender;
 
-  constructor(render: IRender) {
+  view: () => Promise<void>;
+
+  constructor(render: IRender, view: () => Promise<void>) {
     this.container = document.createElement('div');
     this.container.className = 'panel';
     this.createInput = new InputContainer('CREATE');
@@ -26,6 +28,7 @@ class ControlPanel {
     this.buttons = new ButtonContainer();
     this.buttons.allEl.reset.disabled();
     this.renderList = render;
+    this.view = view;
   }
 
   get allInputs() {
@@ -67,8 +70,11 @@ class ControlPanel {
   }
 
   async generatorCars() {
+    this.buttons.allEl.generator.disabled();
     await generatorCarsFn();
-    this.renderList();
+    await this.view();
+    await this.renderList();
+    this.buttons.allEl.generator.enabled();
   }
 
   addActiveBtn() {

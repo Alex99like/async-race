@@ -2,6 +2,7 @@ import { deleteCar, driveState, statusEngine } from '../../api/dbCar';
 import { ICar } from '../../api/IApi';
 import Button from '../Button/Button';
 import InputContainer from '../Button/InputContainer';
+import ModalWinner from '../Garage/ModalWinner';
 import countVelocity from '../utils/countVelocity';
 import CarLine from './CarLine';
 
@@ -31,7 +32,15 @@ class Car {
 
   checkRaceReset: () => Promise<void>;
 
-  constructor(car: ICar, update: InputContainer, render: IRender, check: () => Promise<void>) {
+  winner: ModalWinner;
+
+  constructor(
+    car: ICar,
+    update: InputContainer,
+    render: IRender,
+    check: () => Promise<void>,
+    winner: ModalWinner,
+  ) {
     this.container = document.createElement('div');
     this.remove = new Button('REMOVE');
     this.select = new Button('SELECT');
@@ -45,6 +54,7 @@ class Car {
     this.renderList = render;
     this.state = { stateCar: 'stopped', distance: 0, bool: false };
     this.createCar();
+    this.winner = winner;
   }
 
   private addAttribute(name: string) {
@@ -56,16 +66,17 @@ class Car {
     const finish = this.lineCar.getNode.line.clientWidth;
     this.lineCar.getElement.start.disabled();
     const carStatus = await statusEngine(this.id, 'started');
+    this.state.stateCar = 'started';
     this.lineCar.getElement.stop.enabled();
     const car = this;
-    this.state.stateCar = 'started';
     const drive = driveState(this.id);
     this.state.bool = true;
     requestAnimationFrame(async function animate() {
       car.checkRaceReset();
       car.state.distance += carStatus.velocity / countVelocity(finish);
       car.lineCar.getNode.car.style.left = `${car.state.distance}px`;
-      if (car.state.distance < finish - 50 && car.state.bool) {
+      if (car.state.distance < finish - 50 && car.state.bool && car.state.stateCar === 'started') {
+        if (car.state.distance > finish - 51) car.winner.viewWinner(car.data, carStatus.velocity);
         requestAnimationFrame(animate);
       }
       if ((await drive).status === 500) {
