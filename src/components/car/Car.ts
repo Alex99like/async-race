@@ -2,6 +2,7 @@ import { deleteCar, driveState, statusEngine } from '../../api/dbCar';
 import { ICar } from '../../api/IApi';
 import Button from '../Button/Button';
 import InputContainer from '../Button/InputContainer';
+import countVelocity from '../utils/countVelocity';
 import CarLine from './CarLine';
 
 // eslint-disable-next-line no-unused-vars
@@ -28,12 +29,15 @@ class Car {
 
   data: ICar;
 
-  constructor(car: ICar, update: InputContainer, render: IRender) {
+  checkRaceReset: () => Promise<void>;
+
+  constructor(car: ICar, update: InputContainer, render: IRender, check: () => Promise<void>) {
     this.container = document.createElement('div');
     this.remove = new Button('REMOVE');
     this.select = new Button('SELECT');
     this.title = document.createElement('h4');
     this.data = car;
+    this.checkRaceReset = check;
     this.update = update;
     this.lineCar = new CarLine(car.color);
     this.id = car.id;
@@ -49,6 +53,7 @@ class Car {
   }
 
   async startCar() {
+    const finish = this.lineCar.getNode.line.clientWidth;
     this.lineCar.getElement.start.disabled();
     const carStatus = await statusEngine(this.id, 'started');
     this.lineCar.getElement.stop.enabled();
@@ -57,14 +62,14 @@ class Car {
     const drive = driveState(this.id);
     this.state.bool = true;
     requestAnimationFrame(async function animate() {
-      car.state.distance += carStatus.velocity / 500;
-      car.lineCar.getNode.car.style.left = `${car.state.distance}%`;
-      if (car.state.distance < 85 && car.state.bool) {
+      car.checkRaceReset();
+      car.state.distance += carStatus.velocity / countVelocity(finish);
+      car.lineCar.getNode.car.style.left = `${car.state.distance}px`;
+      if (car.state.distance < finish - 50 && car.state.bool) {
         requestAnimationFrame(animate);
       }
       if ((await drive).status === 500) {
         car.state.bool = false;
-        car.state.stateCar = 'stopped';
       }
     });
   }
@@ -72,11 +77,12 @@ class Car {
   async stopCar() {
     this.lineCar.getElement.stop.disabled();
     await statusEngine(this.id, 'stopped');
+    this.state.stateCar = 'stopped';
+    this.checkRaceReset();
     this.state.distance = 0;
     this.state.bool = false;
-    this.state.stateCar = 'stopped';
     this.lineCar.getElement.start.enabled();
-    this.lineCar.getNode.car.style.marginLeft = `${this.state.distance}%`;
+    this.lineCar.getNode.car.style.left = `${this.state.distance}%`;
   }
 
   async removeBtn() {

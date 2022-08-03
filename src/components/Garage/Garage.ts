@@ -37,6 +37,12 @@ class Garage {
     this.renderList();
   }
 
+  async checkRaceReset() {
+    const map = this.arrElement.filter((el) => el.state.stateCar === 'started');
+    if (map.length > 0) this.controlPanel.allInputs.buttons.reset.enabled();
+    else this.controlPanel.allInputs.buttons.reset.disabled();
+  }
+
   async dataGarageView() {
     const res = await getCars(this.page);
     if (res.count) {
@@ -54,7 +60,12 @@ class Garage {
       res.items.forEach((item) => {
         if (!allId.includes(item.id)) {
           this.arrElement.push(
-            new Car(item, this.controlPanel.allInputs.update, this.renderList.bind(this)),
+            new Car(
+              item,
+              this.controlPanel.allInputs.update,
+              this.renderList.bind(this),
+              this.checkRaceReset.bind(this),
+            ),
           );
         }
       });
@@ -87,9 +98,27 @@ class Garage {
     else this.pnBtn.getElement.next.enabled();
   }
 
+  raceStart() {
+    this.arrElement.forEach((el) => {
+      if (el.state.stateCar === 'stopped' && !el.state.bool) {
+        el.startCar();
+      }
+    });
+  }
+
+  resetEvent() {
+    this.arrElement.forEach((el) => {
+      if (el.state.stateCar === 'started') {
+        el.stopCar();
+      }
+    });
+  }
+
   addActiveBtn() {
     this.pnBtn.getNode.next.addEventListener('click', () => this.pagePrevNext('next'));
     this.pnBtn.getNode.prev.addEventListener('click', () => this.pagePrevNext('prev'));
+    this.controlPanel.getNode.buttons.getNode.race.addEventListener('click', () => this.raceStart());
+    this.controlPanel.getNode.buttons.getNode.reset.addEventListener('click', () => this.resetEvent());
   }
 
   render() {

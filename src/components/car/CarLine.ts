@@ -40,6 +40,7 @@ class CarLine {
       start: this.start.node,
       stop: this.stop.node,
       car: this.car,
+      line: this.line,
     };
   }
 
