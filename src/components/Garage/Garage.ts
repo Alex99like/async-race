@@ -44,8 +44,10 @@ class Garage {
   async checkRaceReset() {
     if (!this.modalWinner.state.race) {
       const map = this.arrElement.filter((el) => el.state.stateCar === 'started');
-      if (map.length > 0) this.controlPanel.allInputs.buttons.reset.enabled();
-      else {
+      if (map.length > 0) {
+        this.controlPanel.allInputs.buttons.reset.enabled();
+        this.controlPanel.allInputs.buttons.race.disabled();
+      } else {
         this.controlPanel.allInputs.buttons.reset.disabled();
         this.controlPanel.allInputs.buttons.race.enabled();
       }

@@ -1,6 +1,7 @@
 import Button from './Button/Button';
 import Garage from './Garage/Garage';
 import '../styles/global.css';
+import Winner from './Winner/Winner';
 
 class App {
   private garage: Garage;
@@ -15,6 +16,8 @@ class App {
 
   private main: HTMLElement;
 
+  winner: Winner;
+
   constructor() {
     this.page = document.createElement('div');
     this.containerBtn = document.createElement('div');
@@ -22,6 +25,7 @@ class App {
     this.garageBtn = new Button('GARAGE', 'btn-functional');
     this.winnerBtn = new Button('WINNER', 'btn-functional');
     this.garage = new Garage();
+    this.winner = new Winner();
   }
 
   createGarage() {
@@ -33,6 +37,7 @@ class App {
 
   createWinner() {
     this.main.innerHTML = '';
+    this.main.append(this.winner.render());
     this.winnerBtn.node.classList.add('active');
     this.garageBtn.node.classList.remove('active');
   }
