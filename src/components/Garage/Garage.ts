@@ -21,11 +21,14 @@ class Garage {
 
   arrElement: Car[];
 
+  count: number;
+
   constructor() {
     this.arrElement = [];
     this.garage = document.createElement('div');
     this.list = document.createElement('div');
     this.page = 1;
+    this.count = 0;
     this.garage.className = 'garage';
     this.list.className = 'list-garage';
     this.controlPanel = new ControlPanel(this.renderList.bind(this));
@@ -36,17 +39,18 @@ class Garage {
 
   async dataGarageView() {
     const res = await getCars(this.page);
-    if (res.count) this.data.updateState(this.page, +res.count);
+    if (res.count) {
+      this.data.updateState(this.page, +res.count);
+      this.count = +res.count;
+    }
   }
 
   async renderList(id?: number) {
     this.dataGarageView();
+    const res = await getCars(this.page);
+    const allId = this.arrElement.map((el) => el.id);
+    if (id) this.arrElement = this.arrElement.filter((item) => item.id !== id);
     if (this.arrElement.length < 7) {
-      const res = await getCars(this.page);
-      const allId = this.arrElement.map((el) => el.id);
-
-      if (id) this.arrElement = this.arrElement.filter((item) => item.id !== id);
-
       res.items.forEach((item) => {
         if (!allId.includes(item.id)) {
           this.arrElement.push(
@@ -57,9 +61,39 @@ class Garage {
       this.list.innerHTML = '';
       this.arrElement.forEach((el) => this.list.append(el.render()));
     }
+    this.checkCarsCount();
+  }
+
+  async pagePrevNext(value: 'next' | 'prev') {
+    this.pnBtn.getElement.prev.disabled();
+    this.pnBtn.getElement.next.disabled();
+    const page = value;
+    if (page === 'next') this.page += 1;
+    else this.page -= 1;
+
+    this.arrElement.forEach(async (el) => {
+      await el.stopCar();
+    });
+    this.arrElement.length = 0;
+    await this.renderList();
+    this.checkCarsCount();
+  }
+
+  checkCarsCount() {
+    if (this.page <= 1) this.pnBtn.getElement.prev.disabled();
+    else this.pnBtn.getElement.prev.enabled();
+
+    if (this.count / 7 <= this.page) this.pnBtn.getElement.next.disabled();
+    else this.pnBtn.getElement.next.enabled();
+  }
+
+  addActiveBtn() {
+    this.pnBtn.getNode.next.addEventListener('click', () => this.pagePrevNext('next'));
+    this.pnBtn.getNode.prev.addEventListener('click', () => this.pagePrevNext('prev'));
   }
 
   render() {
+    this.addActiveBtn();
     this.dataGarageView();
     this.garage.append(
       this.controlPanel.render(),

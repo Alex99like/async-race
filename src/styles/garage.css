@@ -27,10 +27,25 @@
   color: darkorange;
   background-color: #fff;
   box-shadow: 0 0 3px darkorange;
+  cursor: pointer;
+  transition: .2s;
+  height: 25px;
+}
+
+.list-garage .car-item button:hover {
+  background-color: darkorange;
+  box-shadow: 0 0 0;
+  color: #fff;
+}
+
+.list-garage .car-item button:disabled {
+  background-color: dimgray;
+  color: #fff;
+  box-shadow: none;
 }
 
 .list-garage .car-item h4 {
-  padding: 3px 10px;
+  padding: 1px 10px;
   margin-left: 15px;
   box-shadow: 0 0 3px cornflowerblue;
   border-radius: 4px;
@@ -108,5 +123,5 @@
   position: absolute;
   width: 30px;
   height: 30px;
-  right: 10%;
+  right: 14%;
 }

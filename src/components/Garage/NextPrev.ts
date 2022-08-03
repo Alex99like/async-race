@@ -23,8 +23,8 @@ class NextPrev {
 
   get getElement() {
     return {
-      prev: this.prev.node,
-      next: this.next.node,
+      prev: this.prev,
+      next: this.next,
     };
   }
 

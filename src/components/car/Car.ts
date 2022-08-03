@@ -53,15 +53,19 @@ class Car {
     const carStatus = await statusEngine(this.id, 'started');
     this.lineCar.getElement.stop.enabled();
     const car = this;
+    this.state.stateCar = 'started';
     const drive = driveState(this.id);
     this.state.bool = true;
     requestAnimationFrame(async function animate() {
       car.state.distance += carStatus.velocity / 500;
-      car.lineCar.getNode.car.style.marginLeft = `${car.state.distance}%`;
+      car.lineCar.getNode.car.style.left = `${car.state.distance}%`;
       if (car.state.distance < 85 && car.state.bool) {
         requestAnimationFrame(animate);
       }
-      if ((await drive).status === 500) car.state.bool = false;
+      if ((await drive).status === 500) {
+        car.state.bool = false;
+        car.state.stateCar = 'stopped';
+      }
     });
   }
 
@@ -70,11 +74,15 @@ class Car {
     await statusEngine(this.id, 'stopped');
     this.state.distance = 0;
     this.state.bool = false;
+    this.state.stateCar = 'stopped';
     this.lineCar.getElement.start.enabled();
     this.lineCar.getNode.car.style.marginLeft = `${this.state.distance}%`;
   }
 
   async removeBtn() {
+    this.remove.disabled();
+    this.select.disabled();
+    await this.stopCar();
     await deleteCar(this.id);
     this.renderList(this.id);
   }

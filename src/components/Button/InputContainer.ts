@@ -25,6 +25,8 @@ class InputContainer {
   }
 
   disabled() {
+    this.name.node.value = '';
+    this.color.node.value = '#953418';
     this.name.disabled();
     this.color.disabled();
     this.button.disabled();

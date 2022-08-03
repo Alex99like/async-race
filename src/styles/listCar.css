@@ -56,7 +56,8 @@
 }
 
 .prev-and-next button:disabled {
-  background-color: dimgray;
-  color: #fff;
+  background-color: dimgray !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 !important;
 }
 

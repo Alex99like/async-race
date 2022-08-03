@@ -22,7 +22,7 @@ const getCars = async (page: number, limit = 7): Promise<GarageData> => {
   };
 };
 
-const createCar = async (body: ICar): Promise<ICar> => { //
+const createCar = async (body: IGetCar): Promise<ICar> => { //
   const response = await fetch(`${garage}`, {
     method: 'POST',
     headers: {
