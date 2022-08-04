@@ -1,4 +1,6 @@
-import { createWinner, getAllWinners, updateWinner } from '../../api/dbWinner';
+import {
+  createWinner, getAllWinners, getWinner, updateWinner,
+} from '../../api/dbWinner';
 import { ICar } from '../../api/IApi';
 import '../../styles/modal.css';
 
@@ -28,15 +30,16 @@ class ModalWinner {
       this.container.append(this.title);
       await this.getWinners();
       if (this.allWinners.includes(car.id)) {
+        const res = await getWinner(car.id);
         await updateWinner({
           id: car.id,
-          time: speed,
-          wins: 2,
+          time: res.time > speed ? res.time : speed,
+          wins: res.wins += 1,
         });
       } else {
         await createWinner({
           id: car.id,
-          time: velocity,
+          time: speed,
           wins: 1,
         });
       }

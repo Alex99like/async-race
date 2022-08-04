@@ -29,6 +29,7 @@ class ControlPanel {
     this.buttons.allEl.reset.disabled();
     this.renderList = render;
     this.view = view;
+    this.addActiveBtn();
   }
 
   get allInputs() {
@@ -84,7 +85,6 @@ class ControlPanel {
   }
 
   render() {
-    this.addActiveBtn();
     this.container.append(
       this.createInput.render(),
       this.updateInput.render(),

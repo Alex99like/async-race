@@ -39,6 +39,7 @@ class Garage {
     this.pnBtn = new NextPrev();
     this.renderList();
     this.modalWinner = new ModalWinner();
+    this.addActiveBtn();
   }
 
   async checkRaceReset() {
@@ -139,7 +140,6 @@ class Garage {
   }
 
   render() {
-    this.addActiveBtn();
     this.garageView();
     this.garage.append(
       this.modalWinner.render(),
