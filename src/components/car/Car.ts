@@ -86,6 +86,7 @@ class Car {
   }
 
   async stopCar() {
+    this.winner.setState = false;
     this.lineCar.getElement.stop.disabled();
     await statusEngine(this.id, 'stopped');
     this.state.stateCar = 'stopped';

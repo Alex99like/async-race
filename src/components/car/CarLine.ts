@@ -24,6 +24,8 @@ class CarLine {
     this.stop = new Button('stop', 'stop');
     this.stop.disabled();
     this.addAttribute(color);
+    this.line.append(this.car, this.finish);
+    this.container.append(this.start.node, this.stop.node, this.line);
   }
 
   private addAttribute(color: string) {
@@ -52,8 +54,6 @@ class CarLine {
   }
 
   render() {
-    this.line.append(this.car, this.finish);
-    this.container.append(this.start.node, this.stop.node, this.line);
     return this.container;
   }
 }

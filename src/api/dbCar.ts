@@ -70,12 +70,9 @@ const getWinner = async (id: number): Promise<IWinner> => (
 ).json();
 
 const deleteWinner = async (id: number): Promise<void> => {
-  const response = await fetch(`${winners}/${id}`, {
+  await fetch(`${winners}/${id}`, {
     method: 'DELETE',
   });
-
-  const winner = await response.json();
-  return winner;
 };
 
 export {

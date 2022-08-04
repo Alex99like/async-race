@@ -118,17 +118,15 @@ class Garage {
 
   async raceStart() {
     this.modalWinner.setState = true;
-    this.arrElement.forEach(async (el) => {
-      if (el.state.stateCar === 'started') await el.stopCar();
-      await el.startCar();
+    this.arrElement.forEach((el) => {
+      el.startCar();
     });
   }
 
   async resetEvent() {
-    this.arrElement.forEach(async (el) => {
+    this.arrElement.forEach((el) => {
       if (el.state.stateCar === 'started') {
-        await el.stopCar();
-        this.resetEvent();
+        el.stopCar();
       }
     });
   }

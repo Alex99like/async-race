@@ -25,6 +25,17 @@ interface IWinner {
   time: number;
 }
 
+interface WinnerModel {
+  id: number;
+  wins: number;
+  time: number;
+}
+
+interface WinnersModel {
+  items: WinnerModel[];
+  count: string | null;
+}
+
 export {
-  ICar, GarageData, IEngine, IWinner, IGetCar,
+  ICar, GarageData, IEngine, IWinner, IGetCar, WinnerModel, WinnersModel,
 };
