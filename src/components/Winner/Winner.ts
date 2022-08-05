@@ -1,6 +1,6 @@
-import { getCar } from '../../api/dbCar';
+import { getCars } from '../../api/dbCar';
 import { getAllWinners } from '../../api/dbWinner';
-import { WinnerModel } from '../../api/IApi';
+import { ICar, WinnerModel } from '../../api/IApi';
 import '../../styles/winner.css';
 import Button from '../Button/Button';
 import renderCar from '../imgSvg/carSvg';
@@ -43,6 +43,7 @@ class Winner {
     this.buttons = new SortButtons();
     this.prevNext.append(this.prev.node, this.next.node);
     this.classAdd();
+    this.addActiveBtn();
   }
 
   classAdd() {
@@ -53,17 +54,74 @@ class Winner {
     this.prevNext.className = 'prev-next';
   }
 
-  async createListWinner(arr: Promise<WinnerModel[]>) {
-    const res = await arr;
+  async createListWinner() {
+    const arrCar: ICar[] = [];
+    const res = await getAllWinners(this.page, this.order, this.sort);
+    const allCars = await getCars(1, 1000000);
+    if (res && allCars) {
+      res.result.forEach((s) => {
+        const car = allCars.items.find((el) => el.id === s.id);
+        if (car) arrCar.push(car);
+      });
+    }
+    this.checkNextPrev(+res.totalCount);
+    this.containerView.innerHTML = `<h3>Page: ${this.page}</h3>  <h3>Winners: ${res.totalCount}</h3>`;
     this.listWinner.innerHTML = '';
-    res.forEach((item, index) => {
-      this.createCarWinner(item, index);
+    res.result.forEach((item, index) => {
+      this.createCarWinner(item, index, arrCar[index]);
     });
   }
 
-  async createCarWinner(item: WinnerModel, index: number) {
+  nextPrev(value: 'next' | 'prev') {
+    if (value === 'next') this.page += 1;
+    if (value === 'prev') this.page -= 1;
+    this.createListWinner();
+  }
+
+  addActiveBtn() {
+    this.next.node.addEventListener('click', () => this.nextPrev('next'));
+    this.prev.node.addEventListener('click', () => this.nextPrev('prev'));
+    this.buttons.getNode.wins.addEventListener('click', () => {
+      this.order = 'wins';
+      this.buttons.getNode.time.classList.remove('ASC', 'DESC');
+      if (this.buttons.getNode.wins.className.includes('ASC')) {
+        this.sort = 'DESC';
+        this.buttons.getNode.wins.classList.add('DESC');
+        this.buttons.getNode.wins.classList.remove('ASC');
+        this.createListWinner();
+      } else {
+        this.sort = 'ASC';
+        this.buttons.getNode.wins.classList.add('ASC');
+        this.buttons.getNode.wins.classList.remove('DESC');
+        this.createListWinner();
+      }
+    });
+    this.buttons.getNode.time.addEventListener('click', () => {
+      this.order = 'time';
+      this.buttons.getNode.wins.classList.remove('ASC', 'DESC');
+      if (this.buttons.getNode.time.className.includes('ASC')) {
+        this.sort = 'DESC';
+        this.buttons.getNode.time.classList.add('DESC');
+        this.buttons.getNode.time.classList.remove('ASC');
+        this.createListWinner();
+      } else {
+        this.sort = 'ASC';
+        this.buttons.getNode.time.classList.add('ASC');
+        this.buttons.getNode.time.classList.remove('DESC');
+        this.createListWinner();
+      }
+    });
+  }
+
+  checkNextPrev(count: number) {
+    if (this.page <= 1) this.prev.disabled();
+    else this.prev.enabled();
+    if (count / 10 <= this.page) this.next.disabled();
+    else this.next.enabled();
+  }
+
+  async createCarWinner(item: WinnerModel, index: number, car: ICar) {
     const container = document.createElement('div');
-    const car = await getCar(item.id);
     container.innerHTML = `
       <h4 class='number'>${index + 1}</h4>
       <div class="car">${renderCar(car.color)}</div>
@@ -75,14 +133,8 @@ class Winner {
     this.listWinner.append(container);
   }
 
-  async viewWinners() {
-    const res = await getAllWinners(this.page, this.order, this.sort);
-    this.containerView.innerHTML = `<h3>Page: ${this.page}</h3>  <h3>Winners: ${res.totalCount}</h3>`;
-    return res.result;
-  }
-
   render() {
-    this.createListWinner(this.viewWinners());
+    this.createListWinner();
     this.pageWinners.append(
       this.containerView,
       this.buttons.render(),

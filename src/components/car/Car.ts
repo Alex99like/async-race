@@ -1,4 +1,5 @@
 import { deleteCar, driveState, statusEngine } from '../../api/dbCar';
+import { deleteWinner, getAllWinners } from '../../api/dbWinner';
 import { ICar } from '../../api/IApi';
 import Button from '../Button/Button';
 import InputContainer from '../Button/InputContainer';
@@ -100,6 +101,9 @@ class Car {
   async removeBtn() {
     this.remove.disabled();
     this.select.disabled();
+    const arr = await getAllWinners(1, 'id', 'ASC', 1000);
+    const el = arr.result.find((item) => item.id === this.id);
+    if (el) await deleteWinner(this.id);
     await this.stopCar();
     await deleteCar(this.id);
     this.renderList(this.id);

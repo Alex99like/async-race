@@ -1,17 +1,18 @@
 import Button from '../Button/Button';
+import arrowRender from '../imgSvg/arrow';
 
 class SortButtons {
-  number: HTMLHeadingElement;
+  private number: HTMLHeadingElement;
 
-  car: HTMLHeadingElement;
+  private car: HTMLHeadingElement;
 
-  name: HTMLHeadingElement;
+  private name: HTMLHeadingElement;
 
-  wins: Button;
+  private wins: Button;
 
-  time: Button;
+  private time: Button;
 
-  container: HTMLDivElement;
+  private container: HTMLDivElement;
 
   constructor() {
     this.container = document.createElement('div');
@@ -19,11 +20,11 @@ class SortButtons {
     this.car = document.createElement('h5');
     this.name = document.createElement('h5');
     this.wins = new Button('WINS', 'wins');
-    this.time = new Button('Best Time (seconds)', 'time');
+    this.time = new Button('Best Time (sec)', 'time');
     this.addAttributes();
   }
 
-  addAttributes() {
+  private addAttributes() {
     this.container.className = 'container-btn';
     this.number.textContent = 'NUMBER';
     this.number.className = 'number';
@@ -31,9 +32,18 @@ class SortButtons {
     this.car.className = 'car';
     this.name.textContent = 'NAME';
     this.name.className = 'name';
+    this.time.node.innerHTML += `<div class="arrow"> ${arrowRender()}</div>`;
+    this.wins.node.innerHTML += `<div class="arrow"> ${arrowRender()}</div>`;
   }
 
-  render() {
+  get getNode() {
+    return {
+      wins: this.wins.node,
+      time: this.time.node,
+    };
+  }
+
+  public render() {
     this.container.append(this.number, this.car, this.name, this.wins.node, this.time.node);
     return this.container;
   }
