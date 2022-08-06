@@ -19,11 +19,11 @@ class Car {
 
   private title: HTMLHeadingElement;
 
-  private lineCar: CarLine;
+  lineCar: CarLine;
 
   public id: number;
 
-  state: { stateCar: 'started' | 'stopped', distance: number, bool: boolean; };
+  state: { stateCar: 'started' | 'stopped', distance: number, bool: boolean, check: boolean; };
 
   renderList: IRender;
 
@@ -53,7 +53,9 @@ class Car {
     this.id = car.id;
     this.addAttribute(car.name);
     this.renderList = render;
-    this.state = { stateCar: 'stopped', distance: 0, bool: false };
+    this.state = {
+      stateCar: 'stopped', distance: 0, bool: false, check: false,
+    };
     this.createCar();
     this.winner = winner;
   }
@@ -65,6 +67,8 @@ class Car {
 
   async startCar() {
     const finish = this.lineCar.getNode.line.clientWidth;
+    this.remove.disabled();
+    this.state.check = true;
     this.lineCar.getElement.start.disabled();
     const carStatus = await statusEngine(this.id, 'started');
     this.state.stateCar = 'started';
@@ -76,18 +80,37 @@ class Car {
       car.checkRaceReset();
       car.state.distance += carStatus.velocity / countVelocity(finish);
       car.lineCar.getNode.car.style.left = `${car.state.distance}px`;
+      car.checkRaceStart();
       if (car.state.distance < finish - 50 && car.state.bool && car.state.stateCar === 'started') {
-        if (car.state.distance > finish - 51) car.winner.viewWinner(car.data, carStatus.velocity);
+        if (car.state.distance > finish - 53) {
+          car.winner.viewWinner(car.data, carStatus.velocity);
+          car.winner.setState = false;
+        }
         requestAnimationFrame(animate);
       }
       if ((await drive).status === 500) {
         car.state.bool = false;
+        car.state.check = false;
+        car.lineCar.getElement.stop.enabled();
+        car.remove.enabled();
       }
     });
   }
 
+  checkRaceStart() {
+    if (this.state.check) {
+      if (this.winner.state.race) {
+        this.lineCar.getElement.stop.disabled();
+        this.remove.disabled();
+      } else {
+        this.lineCar.getElement.stop.enabled();
+        this.remove.enabled();
+        this.state.check = false;
+      }
+    }
+  }
+
   async stopCar() {
-    this.winner.setState = false;
     this.lineCar.getElement.stop.disabled();
     await statusEngine(this.id, 'stopped');
     this.state.stateCar = 'stopped';

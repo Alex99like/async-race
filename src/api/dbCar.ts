@@ -1,11 +1,10 @@
 import {
-  ICar, GarageData, IEngine, IWinner, IGetCar,
+  ICar, GarageData, IEngine, IGetCar,
 } from './IApi';
 
 const base = 'http://localhost:3000';
 
 const garage = `${base}/garage`;
-const winners = `${base}/winners`;
 const engine = `${base}/engine`;
 
 const getCar = async (id: number): Promise<ICar> => (
@@ -65,16 +64,6 @@ const driveState = async (id: number): Promise<Response> => {
   return response;
 };
 
-const getWinner = async (id: number): Promise<IWinner> => (
-  await fetch(`${winners}/${id}`)
-).json();
-
-const deleteWinner = async (id: number): Promise<void> => {
-  await fetch(`${winners}/${id}`, {
-    method: 'DELETE',
-  });
-};
-
 export {
   getCar,
   getCars,
@@ -83,6 +72,4 @@ export {
   statusEngine,
   driveState,
   updateCar,
-  getWinner,
-  deleteWinner,
 };

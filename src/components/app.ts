@@ -48,14 +48,13 @@ class App {
   }
 
   render() {
-    const body = document.querySelector('body');
     this.containerBtn.className = 'container-function-btn';
     this.page.className = 'page';
     this.addActiveBtn();
     this.createGarage();
     this.containerBtn.append(this.garageBtn.node, this.winnerBtn.node);
     this.page.append(this.containerBtn, this.main);
-    if (body) body.append(this.page);
+    document.body.append(this.page);
   }
 }
 

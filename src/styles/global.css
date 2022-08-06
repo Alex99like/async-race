@@ -7,6 +7,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* body {
+  background-color: rgb(35 39 47);
+} */
+
 body::-webkit-scrollbar {
   width: 12px;               /* ширина scrollbar */
 }

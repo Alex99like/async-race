@@ -22,7 +22,7 @@ class ModalWinner {
 
   async viewWinner(car: ICar, velocity: number) {
     if (this.state.race) {
-      const speed = velocity / 10;
+      const speed = +(velocity / 15).toFixed(2);
       this.removeModal();
       this.container.className = 'modal-window';
       this.title.className = 'modal-winner-title';
