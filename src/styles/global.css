@@ -7,20 +7,21 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* body {
-  background-color: rgb(35 39 47);
-} */
+body {
+  overflow-x: hidden;
+  /* background-color: rgb(35 39 47); */
+}
 
 body::-webkit-scrollbar {
   width: 12px;               /* ширина scrollbar */
 }
 body::-webkit-scrollbar-track {
-  background: #38015A;        /* цвет дорожки */
+  background: rgb(35 39 47);        /* цвет дорожки */
 }
 body::-webkit-scrollbar-thumb {
-  background-color: #530174;    /* цвет плашки */
+  background-color: rgba(255, 255, 255, 0.387)(255, 255, 255, 0.387);    /* цвет плашки */
   border-radius: 10px;       /* закругления плашки */
-  border: 3px solid #38015A;  /* padding вокруг плашки */
+  border: 3px solid #fff;  /* padding вокруг плашки */
 }
 
 .container-function-btn {

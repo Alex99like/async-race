@@ -61,6 +61,14 @@ class Garage {
     }
   }
 
+  badRace() {
+    const arr = this.arrElement.filter((el) => el.state.check);
+    if (arr.length === 0) {
+      this.controlPanel.allInputs.buttons.reset.enabled();
+      this.modalWinner.setState = false;
+    }
+  }
+
   async garageView() {
     const res = await getCars(this.page);
     if (res.count) {
@@ -84,6 +92,7 @@ class Garage {
               this.renderList.bind(this),
               this.checkRaceReset.bind(this),
               this.modalWinner,
+              this.badRace.bind(this),
             ),
           );
         }

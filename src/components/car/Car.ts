@@ -35,12 +35,15 @@ class Car {
 
   winner: ModalWinner;
 
+  badRace: () => void;
+
   constructor(
     car: ICar,
     update: InputContainer,
     render: IRender,
     check: () => Promise<void>,
     winner: ModalWinner,
+    badRace: () => void,
   ) {
     this.container = document.createElement('div');
     this.remove = new Button('REMOVE');
@@ -57,6 +60,7 @@ class Car {
       stateCar: 'stopped', distance: 0, bool: false, check: false,
     };
     this.createCar();
+    this.badRace = badRace;
     this.winner = winner;
   }
 
@@ -89,6 +93,7 @@ class Car {
         requestAnimationFrame(animate);
       }
       if ((await drive).status === 500) {
+        car.badRace();
         car.state.bool = false;
         car.state.check = false;
         car.lineCar.getElement.stop.enabled();
