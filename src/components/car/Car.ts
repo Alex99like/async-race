@@ -94,9 +94,9 @@ class Car {
       }
       if ((await drive).status === 500) {
         car.badRace();
+        if (car.state.check) car.lineCar.getElement.stop.enabled();
         car.state.bool = false;
         car.state.check = false;
-        car.lineCar.getElement.stop.enabled();
         car.remove.enabled();
       }
     });
@@ -121,6 +121,7 @@ class Car {
     this.state.stateCar = 'stopped';
     this.checkRaceReset();
     this.state.distance = 0;
+    this.state.check = false;
     this.state.bool = false;
     this.lineCar.getElement.start.enabled();
     this.lineCar.getNode.car.style.left = `${this.state.distance}%`;

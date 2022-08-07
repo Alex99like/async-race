@@ -33,7 +33,7 @@ class ModalWinner {
         const res = await getWinner(car.id);
         await updateWinner({
           id: car.id,
-          time: res.time > speed ? res.time : speed,
+          time: res.time < speed ? res.time : speed,
           wins: res.wins += 1,
         });
       } else {
@@ -48,7 +48,7 @@ class ModalWinner {
   }
 
   async getWinners() {
-    const arr = await getAllWinners(1, 'id', 'ASC', 150);
+    const arr = await getAllWinners(1, 'id', 'ASC', 1000);
     this.allWinners = arr.result.map((el) => el.id);
   }
 
