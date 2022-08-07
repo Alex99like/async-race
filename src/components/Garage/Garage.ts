@@ -137,6 +137,8 @@ class Garage {
     this.arrElement.forEach((el) => {
       if (el.state.stateCar === 'started') {
         el.stopCar();
+      } else {
+        this.controlPanel.allInputs.buttons.reset.disabled();
       }
     });
   }

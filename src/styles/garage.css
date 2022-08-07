@@ -42,6 +42,7 @@
   background-color: dimgray;
   color: #fff;
   box-shadow: none;
+  cursor: no-drop;
 }
 
 .list-garage .car-item h4 {
@@ -93,6 +94,7 @@
 .list-garage .car-item .line-car .stop:disabled {
   transform: scale(0.9);
   background-color: dimgray;
+  cursor: no-drop;
 }
 
 .list-garage .car-item .line-car .line .car svg {
