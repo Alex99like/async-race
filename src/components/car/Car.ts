@@ -19,23 +19,23 @@ class Car {
 
   private title: HTMLHeadingElement;
 
-  lineCar: CarLine;
+  private lineCar: CarLine;
 
   public id: number;
 
-  state: { stateCar: 'started' | 'stopped', distance: number, bool: boolean, check: boolean, btnStop: boolean; };
+  public state: { stateCar: 'started' | 'stopped', distance: number, bool: boolean, check: boolean, btnStop: boolean; };
 
-  renderList: IRender;
+  private renderList: IRender;
 
-  update: InputContainer;
+  private update: InputContainer;
 
-  data: ICar;
+  private data: ICar;
 
-  checkRaceReset: () => Promise<void>;
+  private checkRaceReset: () => Promise<void>;
 
-  winner: ModalWinner;
+  private winner: ModalWinner;
 
-  badRace: () => void;
+  private badRace: () => void;
 
   constructor(
     car: ICar,

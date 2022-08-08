@@ -16,7 +16,7 @@ class App {
 
   private main: HTMLElement;
 
-  winner: Winner;
+  private winner: Winner;
 
   constructor() {
     this.page = document.createElement('div');
@@ -28,26 +28,26 @@ class App {
     this.winner = new Winner();
   }
 
-  createGarage() {
+  private createGarage(): void {
     this.main.innerHTML = '';
     this.main.append(this.garage.render());
     this.garageBtn.node.classList.add('active');
     this.winnerBtn.node.classList.remove('active');
   }
 
-  createWinner() {
+  private createWinner(): void {
     this.main.innerHTML = '';
     this.main.append(this.winner.render());
     this.winnerBtn.node.classList.add('active');
     this.garageBtn.node.classList.remove('active');
   }
 
-  addActiveBtn() {
+  addActiveBtn(): void {
     this.garageBtn.node.addEventListener('click', () => this.createGarage());
     this.winnerBtn.node.addEventListener('click', () => this.createWinner());
   }
 
-  render() {
+  render(): void {
     this.containerBtn.className = 'container-function-btn';
     this.page.className = 'page';
     this.addActiveBtn();

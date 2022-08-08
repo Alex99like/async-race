@@ -12,7 +12,7 @@ class DataGarage {
     this.count = document.createElement('h3');
   }
 
-  updateState(page: number, count: number = 0) {
+  updateState(page: number, count: number = 0): void {
     this.page.innerHTML = `Page: ${page}`;
     this.count.innerHTML = `Cars in garage: ${count}`;
   }

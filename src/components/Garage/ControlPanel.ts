@@ -48,7 +48,7 @@ class ControlPanel {
     };
   }
 
-  async updateBtn() {
+  private async updateBtn() {
     await updateCar(this.updateInput.getId, {
       name: this.updateInput.allInputs.name.value,
       color: this.updateInput.allInputs.color.value,
@@ -60,7 +60,7 @@ class ControlPanel {
     this.updateInput.disabled();
   }
 
-  async createCar() {
+  private async createCar() {
     await createCar({
       name: this.createInput.allInputs.name.value,
       color: this.createInput.allInputs.color.value,
@@ -70,7 +70,7 @@ class ControlPanel {
     this.renderList();
   }
 
-  async generatorCars() {
+  private async generatorCars() {
     this.buttons.allEl.generator.disabled();
     await generatorCarsFn();
     await this.view();
@@ -78,13 +78,13 @@ class ControlPanel {
     this.buttons.allEl.generator.enabled();
   }
 
-  addActiveBtn() {
+  private addActiveBtn() {
     this.updateInput.allInputs.button.addEventListener('click', () => this.updateBtn());
     this.createInput.allInputs.button.addEventListener('click', () => this.createCar());
     this.buttons.getNode.generator.addEventListener('click', () => this.generatorCars());
   }
 
-  render() {
+  public render() {
     this.container.append(
       this.createInput.render(),
       this.updateInput.render(),

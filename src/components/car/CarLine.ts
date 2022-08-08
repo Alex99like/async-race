@@ -53,7 +53,7 @@ class CarLine {
     };
   }
 
-  render() {
+  public render() {
     return this.container;
   }
 }

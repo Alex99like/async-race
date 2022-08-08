@@ -5,13 +5,13 @@ import { ICar } from '../../api/IApi';
 import '../../styles/modal.css';
 
 class ModalWinner {
-  container: HTMLDivElement;
+  private container: HTMLDivElement;
 
-  state: { race: boolean; };
+  public state: { race: boolean; };
 
-  title: HTMLHeadingElement;
+  private title: HTMLHeadingElement;
 
-  allWinners: Array<number>;
+  private allWinners: Array<number>;
 
   constructor() {
     this.container = document.createElement('div');
@@ -20,9 +20,9 @@ class ModalWinner {
     this.allWinners = [];
   }
 
-  async viewWinner(car: ICar, velocity: number) {
+  public async viewWinner(car: ICar, velocity: number): Promise<void> {
     if (this.state.race) {
-      const speed = +(velocity / 15).toFixed(2);
+      const speed = +(velocity / 14).toFixed(2);
       this.removeModal();
       this.container.className = 'modal-window';
       this.title.className = 'modal-winner-title';
@@ -47,23 +47,23 @@ class ModalWinner {
     this.state.race = false;
   }
 
-  async getWinners() {
+  private async getWinners(): Promise<void> {
     const arr = await getAllWinners(1, 'id', 'ASC', 1000);
     this.allWinners = arr.result.map((el) => el.id);
   }
 
-  removeModal() {
+  private removeModal(): void {
     this.container.addEventListener('click', () => {
       this.container.className = '';
       this.container.innerHTML = '';
     });
   }
 
-  set setState(value: boolean) {
+  public set setState(value: boolean) {
     this.state.race = value;
   }
 
-  render() {
+  public render(): HTMLDivElement {
     return this.container;
   }
 }

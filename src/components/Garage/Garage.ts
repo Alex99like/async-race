@@ -61,7 +61,7 @@ class Garage {
     }
   }
 
-  badRace(): void {
+  private badRace(): void {
     const arr = this.arrElement.filter((el) => el.state.check);
     if (arr.length === 0) {
       this.controlPanel.allInputs.buttons.reset.enabled();
@@ -69,7 +69,7 @@ class Garage {
     }
   }
 
-  async garageView(): Promise<void> {
+  private async garageView(): Promise<void> {
     const res = await getCars(this.page);
     if (res.count) {
       this.data.updateState(this.page, +res.count);
@@ -77,7 +77,7 @@ class Garage {
     }
   }
 
-  async renderList(id?: number): Promise<void> {
+  private async renderList(id?: number): Promise<void> {
     this.garageView();
     const res = await getCars(this.page);
     const allId = this.arrElement.map((el) => el.id);
@@ -103,7 +103,7 @@ class Garage {
     this.checkCarsCount();
   }
 
-  async pagePrevNext(value: 'next' | 'prev'): Promise<void> {
+  private async pagePrevNext(value: 'next' | 'prev'): Promise<void> {
     this.pnBtn.getElement.prev.disabled();
     this.pnBtn.getElement.next.disabled();
     const page = value;
@@ -118,7 +118,7 @@ class Garage {
     this.checkCarsCount();
   }
 
-  checkCarsCount(): void {
+  private checkCarsCount(): void {
     if (this.page <= 1) this.pnBtn.getElement.prev.disabled();
     else this.pnBtn.getElement.prev.enabled();
 
@@ -126,7 +126,7 @@ class Garage {
     else this.pnBtn.getElement.next.enabled();
   }
 
-  async raceStart(): Promise<void> {
+  private async raceStart(): Promise<void> {
     this.modalWinner.setState = true;
     this.arrElement.forEach((el) => {
       if (!el.state.check) {
@@ -135,7 +135,7 @@ class Garage {
     });
   }
 
-  async resetEvent(): Promise<void> {
+  private async resetEvent(): Promise<void> {
     this.arrElement.forEach((el) => {
       if (el.state.btnStop) {
         el.stopCar();
@@ -145,14 +145,14 @@ class Garage {
     });
   }
 
-  addActiveBtn(): void {
+  private addActiveBtn(): void {
     this.pnBtn.getNode.next.addEventListener('click', () => this.pagePrevNext('next'));
     this.pnBtn.getNode.prev.addEventListener('click', () => this.pagePrevNext('prev'));
     this.controlPanel.getNode.buttons.getNode.race.addEventListener('click', () => this.raceStart());
     this.controlPanel.getNode.buttons.getNode.reset.addEventListener('click', () => this.resetEvent());
   }
 
-  render(): HTMLDivElement {
+  public render(): HTMLDivElement {
     this.garageView();
     this.garage.append(
       this.modalWinner.render(),

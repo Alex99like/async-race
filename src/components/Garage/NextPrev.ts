@@ -14,21 +14,21 @@ class NextPrev {
     this.next = new Button('NEXT', 'next');
   }
 
-  get getNode() {
+  public get getNode(): {prev: HTMLButtonElement; next: HTMLButtonElement;} {
     return {
       prev: this.prev.node,
       next: this.next.node,
     };
   }
 
-  get getElement() {
+  public get getElement(): {prev: Button; next: Button;} {
     return {
       prev: this.prev,
       next: this.next,
     };
   }
 
-  render() {
+  public render() {
     this.container.append(this.prev.node, this.next.node);
     return this.container;
   }
