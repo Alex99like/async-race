@@ -23,7 +23,7 @@ class Car {
 
   public id: number;
 
-  state: { stateCar: 'started' | 'stopped', distance: number, bool: boolean, check: boolean; };
+  state: { stateCar: 'started' | 'stopped', distance: number, bool: boolean, check: boolean, btnStop: boolean; };
 
   renderList: IRender;
 
@@ -57,7 +57,7 @@ class Car {
     this.addAttribute(car.name);
     this.renderList = render;
     this.state = {
-      stateCar: 'stopped', distance: 0, bool: false, check: false,
+      stateCar: 'stopped', distance: 0, bool: false, check: false, btnStop: true,
     };
     this.createCar();
     this.badRace = badRace;
@@ -73,6 +73,7 @@ class Car {
     const finish = this.lineCar.getNode.line.clientWidth;
     this.remove.disabled();
     this.state.check = true;
+    this.state.btnStop = true;
     this.lineCar.getElement.start.disabled();
     const carStatus = await statusEngine(this.id, 'started');
     this.state.stateCar = 'started';
@@ -116,6 +117,7 @@ class Car {
   }
 
   async stopCar() {
+    this.state.btnStop = false;
     this.lineCar.getElement.stop.disabled();
     await statusEngine(this.id, 'stopped');
     this.state.stateCar = 'stopped';

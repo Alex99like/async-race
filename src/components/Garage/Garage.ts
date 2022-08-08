@@ -129,13 +129,15 @@ class Garage {
   async raceStart(): Promise<void> {
     this.modalWinner.setState = true;
     this.arrElement.forEach((el) => {
-      el.startCar();
+      if (!el.state.check) {
+        el.startCar();
+      }
     });
   }
 
   async resetEvent(): Promise<void> {
     this.arrElement.forEach((el) => {
-      if (el.state.stateCar === 'started') {
+      if (el.state.btnStop) {
         el.stopCar();
       } else {
         this.controlPanel.allInputs.buttons.reset.disabled();
