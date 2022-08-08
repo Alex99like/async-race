@@ -126,6 +126,11 @@ class Car {
     this.state.check = false;
     this.state.bool = false;
     this.lineCar.getElement.start.enabled();
+    if (!this.state.btnStop) {
+      this.state.distance = 0;
+      this.lineCar.getElement.stop.disabled();
+      this.lineCar.getElement.start.enabled();
+    }
     this.lineCar.getNode.car.style.left = `${this.state.distance}%`;
   }
 
