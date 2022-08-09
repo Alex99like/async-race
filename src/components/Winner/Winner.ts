@@ -1,6 +1,6 @@
 import { getCars } from '../../api/dbCar';
 import { getAllWinners } from '../../api/dbWinner';
-import { ICar, WinnerModel } from '../../api/IApi';
+import { GarageData, ICar, WinnerModel } from '../../api/IApi';
 import '../../styles/winner.css';
 import Button from '../Button/Button';
 import renderCar from '../imgSvg/carSvg';
@@ -56,8 +56,11 @@ class Winner {
 
   async createListWinner() {
     const arrCar: ICar[] = [];
-    const res = await getAllWinners(this.page, this.order, this.sort);
-    const allCars = await getCars(1, 1000000);
+    const res: {
+      result: WinnerModel[];
+      totalCount: string;
+  } = await getAllWinners(this.page, this.order, this.sort);
+    const allCars: GarageData = await getCars(1, 1000000);
     if (res && allCars) {
       res.result.forEach((s) => {
         const car = allCars.items.find((el) => el.id === s.id);
@@ -121,7 +124,7 @@ class Winner {
   }
 
   async createCarWinner(item: WinnerModel, index: number, car: ICar) {
-    const container = document.createElement('div');
+    const container: HTMLDivElement = document.createElement('div');
     container.innerHTML = `
       <h4 class='number'>${index + 1}</h4>
       <div class="car">${renderCar(car.color)}</div>
