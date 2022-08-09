@@ -1,0 +1,196 @@
+.winners-container {
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 1px 1px 3px dimgray;
+}
+
+.view-container {
+  display: flex;
+  width: 260px;
+  justify-content: space-between;
+}
+
+.view-container h3 {
+  padding: 10px 15px;
+  box-shadow: 2px 2px 5px dimgray;
+  border-radius: 4px;
+}
+
+.list-winner {
+  max-width: 800px;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  /* box-shadow: 0 0 3px dimgray; */
+  margin-top: 10px;
+}
+
+.list-winner .winner-item {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  padding: 5px;
+  box-shadow: 0 0 3px dimgray;
+  border-radius: 4px;
+}
+
+.list-winner .winner-item .number {
+  padding-left: 5px;
+  width: 15%;
+}
+
+.list-winner .winner-item .name {
+  width: 25%;
+}
+
+.list-winner .winner-item .wins {
+  width: 13%;
+  padding-left: 1%;
+  border-left: 2px solid dimgray;
+}
+
+.list-winner .winner-item .time {
+  width: 10%;
+  padding-left: 1%;
+  border-left: 2px solid dimgray;
+}
+
+.list-winner .winner-item .car svg {
+  width: 50px;
+  height: 22px;
+}
+
+.list-winner .winner-item .car {
+  width: 18%;
+  height: 22px;
+}
+
+.page-winners .prev-next {
+  margin-top: 20px;
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-winners .prev-next button {
+  border: none;
+  font-size: 17px;
+  font-weight: 700;
+  padding: 7px 20px;
+  border-radius: 4px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: .1s;
+}
+
+.container-btn {
+  display: flex;
+  margin-top: 20px;
+  max-width: 800px;
+  width: 100%;
+}
+
+.container-btn .number {
+  width: 17%;
+  padding-left: 5px;
+}
+
+.container-btn .car {
+  width: 17%;
+}
+
+.container-btn .name {
+  width: 20%;
+}
+
+.container-btn .wins {
+  display: flex;
+  justify-content: center;
+  width: 13%;
+  margin-right: 2%;
+  border: none;
+  font-weight: 500;
+  padding: 0 5px;
+  border-radius: 4px;
+  background-color: crimson;
+  color: #fff;
+  cursor: pointer;
+}
+
+.container-btn .time {
+  justify-content: center;
+  display: flex;
+  border: none;
+  width: 30%;
+  font-weight: 500;
+  padding: 0 6px;
+  border-radius: 4px;
+  background-color: crimson;
+  color: #fff;
+  cursor: pointer;
+}
+
+.container-btn .time svg,
+.container-btn .wins svg {
+  width: 12px;
+  position: relative;
+  bottom: -1.5px;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 2px;
+  transform: rotate(90deg);
+}
+
+.container-btn .time .arrow, 
+.container-btn .wins .arrow {
+  width: 8px;
+  margin-left: 2px;
+} 
+
+.container-btn .DESC .arrow svg {
+  transform: rotate(0deg);
+} 
+
+.container-btn .ASC .arrow svg {
+  transform: rotate(180deg);
+} 
+
+
+.container-btn .name,
+.container-btn .number,
+.container-btn .car {
+  display: flex;
+  align-items: center;
+}
+
+.page-winners .prev-next .next {
+  box-shadow: 0 0 3px green;
+  color: green;
+}
+
+.page-winners .prev-next .prev {
+  box-shadow: 0 0 3px crimson;
+  color: crimson;
+}
+
+.page-winners .prev-next .prev:hover {
+  background-color: crimson;
+  color: #fff;
+}
+
+.page-winners .prev-next .next:hover {
+  background-color: green;
+  color: #fff;
+}
+
+.page-winners .prev-next button:hover {
+  transform: scale(1.1);
+}
+
+.page-winners .prev-next button:disabled {
+  background-color: dimgray !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 !important;
+  transform: scale(1.0) !important;
+}

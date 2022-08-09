@@ -1,0 +1,24 @@
+.modal-window {
+  background-color: rgba(134, 133, 133, 0.304);
+  width: 100%;
+  left: 0%;
+  top: 0%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.modal-winner-title {
+  font-size: 5vw;
+  margin: 0 auto;
+  color: #fff;
+  text-shadow: 0 0 4px black;
+  border: 3px solid dimgray;
+  padding: 20px 15px;
+  border-radius: 25%;
+  background-color: aliceblue;
+  box-shadow: 0 0 7px dimgray;
+}
